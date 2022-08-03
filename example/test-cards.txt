@@ -1,0 +1,33 @@
+VISA:
+--------------------------------------------------------------------
+000	Authorized transaction                      	4999999999990011
+105	Transaction not allowed by the issuing bank	    4999999999990029
+116	Shortage of funds	                            4999999999990037
+111	Non-existent card	                            4999999999990045
+108	Lost or stolen card	                            4999999999990052
+101	Wrong expiration date	                        4999999999990060
+130	Allowed overexpenditure limit exceeded	        4999999999990078
+290	Issuing bank unavailable	                    4999999999990086
+291	Technical or communication problem	            4999999999990094
+401	Format error
+402	Acquirer/Merchant parameters error
+403	Connection with PS source (DS) error	        4999999999990102
+404	Purchaser authentication error	                4999999999990110
+405	Signature error
+501	Transaction cancelled by the user
+502	Browser session expired
+
+MASTERCARD:
+--------------------------------------------------------------------
+000	Authorized transaction	                        5559490000000007
+000	Authorized transaction	                        5559490000000015
+000	Authorized transaction	                        5559490000000023
+105	Transaction not allowed by the issuing bank 	5559490000000106
+116	Shortage of funds	                            5559490000000114
+111	Non-existent card	                            5559490000000122
+101	Wrong expiration date	                        5559490000000148
+291	Technical or communication problem	            5559490000000213
+
+MAESTRO:
+--------------------------------------------------------------------
+000	Authorized transaction	                        6258148147036936

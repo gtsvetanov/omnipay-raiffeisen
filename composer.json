@@ -1,0 +1,42 @@
+{
+    "name": "cloudcart/omnipay-raiffeisen",
+    "type": "library",
+    "description": "Raiffeisen Bank BG gateway for Omnipay payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment",
+        "raiffeisen",
+        "purchase"
+    ],
+    "homepage": "https://github.com/cloudcart/omnipay-raiffeisen",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Evgeni Nurkov",
+            "email": "evgeni.nurkov@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\Raiffeisen\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7",
+        "omnipay/common": "^3",
+        "ext-openssl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "omnipay/tests": "^3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "prefer-stable": true
+}
