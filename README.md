@@ -8,10 +8,10 @@ PHP. This package implements Raiffeisen Bank BG support for Omnipay.
 ## Installation
 
 Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply require `league/omnipay`
-and `gentor/omnipay-raiffeisen` with Composer:
+and `gtsvetanov/omnipay-raiffeisen` with Composer:
 
 ```
-composer require league/omnipay gentor/omnipay-raiffeisen
+composer require league/omnipay gtsvetanov/omnipay-raiffeisen
 ```
 
 ## Basic Usage
