@@ -56,6 +56,17 @@ class Gateway extends AbstractGateway
         return $this->setParameter('privateKey', $value);
     }
 
+
+    public function getPrivateKeyPassphrase()
+    {
+        return $this->getParameter('privateKeyPassphrase');
+    }
+
+    public function setPrivateKeyPassphrase($value)
+    {
+        return $this->setParameter('privateKeyPassphrase', $value);
+    }
+
     public function getGatewayCertificate()
     {
         return $this->getParameter('gatewayCertificate');

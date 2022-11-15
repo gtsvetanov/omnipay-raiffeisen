@@ -3,6 +3,8 @@
 
 namespace Omnipay\Raiffeisen\Message;
 
+use Symfony\Component\HttpFoundation\RedirectResponse as HttpRedirectResponse;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 {
@@ -89,4 +91,49 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         return $this->data;
     }
 
+    /**
+     * @return HttpRedirectResponse|HttpResponse
+     */
+    public function getRedirectResponse(bool $embed = false, bool $submit = true, ?string $url = null)
+    {
+        $this->validateRedirect();
+
+        if ('GET' === $this->getRedirectMethod()) {
+            return new HttpRedirectResponse($this->getRedirectUrl());
+        }
+
+        if (empty($url)) {
+            $url = $this->getRedirectUrl();
+        }
+
+        $html = '';
+        if ($embed === false) {
+            $html .= '<html lang="">' . PHP_EOL;
+            $html .= '<body>' . PHP_EOL;
+        }
+
+        $html .= '<form id="payment-form" method="POST" action="' . $this->_encode($url) . '" style="display: none;">' . PHP_EOL;
+        foreach ($this->getRedirectData() as $key => $value) {
+            $html .= '<input name="' . $this->_encode($key) . '" value="' . $this->_encode($value) . '" style="width: 100%; display: none;">' . PHP_EOL;
+        }
+
+        $html .= '<button type="submit" class="button" style="display: none;"><span><span>Pay order</span></span></button>' . PHP_EOL;
+        $html .= '</form>' . PHP_EOL;
+
+        if ($submit === true) {
+            $html .= '<script>document.getElementById(\'payment-form\').submit();</script>' . PHP_EOL;
+        }
+
+        if ($embed === false) {
+            $html .= '</body>' . PHP_EOL;
+            $html .= '</html>' . PHP_EOL;
+        }
+
+        return new HttpResponse($html);
+    }
+
+    private function _encode(string $value): string
+    {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
+    }
 }

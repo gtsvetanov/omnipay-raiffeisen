@@ -52,6 +52,11 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('privateKey');
     }
 
+    public function getPrivateKeyPassphrase()
+    {
+        return $this->getParameter('privateKeyPassphrase');
+    }
+
     public function getEndpoint()
     {
         return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
@@ -83,7 +88,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      */
     public function validatePrivateKey()
     {
-        $result = openssl_get_privatekey($this->getPrivateKey());
+        $result = openssl_get_privatekey($this->getPrivateKey(), $this->getPrivateKeyPassphrase());
         if (!$result) {
             throw new InvalidRequestException("The privateKey parameter is invalid");
         }

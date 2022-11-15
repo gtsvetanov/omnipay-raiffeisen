@@ -56,9 +56,9 @@ class Signature
         'organizationalUnitName',
     ];
 
-    public static function create($message, $privateKey)
+    public static function create($message, $privateKey, $privateKeyPassphrase = null)
     {
-        $privateKeyId = openssl_get_privatekey($privateKey);
+        $privateKeyId = openssl_get_privatekey($privateKey, $privateKeyPassphrase);
 
         openssl_sign($message, $signature, $privateKeyId, self::ALGO);
         openssl_free_key($privateKeyId);

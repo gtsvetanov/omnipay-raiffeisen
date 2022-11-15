@@ -1,5 +1,5 @@
 {
-    "name": "cloudcart/omnipay-raiffeisen",
+    "name": "gtsvetanov/omnipay-raiffeisen",
     "type": "library",
     "description": "Raiffeisen Bank BG gateway for Omnipay payment processing library",
     "keywords": [
@@ -11,12 +11,16 @@
         "raiffeisen",
         "purchase"
     ],
-    "homepage": "https://github.com/cloudcart/omnipay-raiffeisen",
+    "homepage": "https://github.com/gtsvetanov/omnipay-raiffeisen",
     "license": "MIT",
     "authors": [
         {
             "name": "Evgeni Nurkov",
             "email": "evgeni.nurkov@gmail.com"
+        },
+        {
+            "name": "Georgi Tsvetanov",
+            "email": "spam@gtsvetanov.com"
         }
     ],
     "autoload": {

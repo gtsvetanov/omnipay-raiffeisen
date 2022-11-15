@@ -32,7 +32,7 @@ class RefundRequest extends AbstractRequest
     {
         $message = Signature::getMacSourceValue($data, 'refund');
 
-        return Signature::create($message, $this->getPrivateKey());
+        return Signature::create($message, $this->getPrivateKey(), $this->getPrivateKeyPassphrase());
     }
 
     /**
