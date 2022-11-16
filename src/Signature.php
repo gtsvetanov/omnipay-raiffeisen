@@ -99,21 +99,27 @@ class Signature
         return $message;
     }
 
-    public static function createJWS(array $data, $privateKey)
+    /**
+     * @param   array       $data
+     * @param               $privateKey
+     * @param   string|null $passphrase
+     * @return  array
+     */
+    public static function createJWS(array $data, $privateKey, ?string $passphrase = null): array
     {
         $header = base64_encode(json_encode(['alg' => 'RS512']));
         $payload = base64_encode(json_encode($data));
         $message = "$header.$payload";
 
-        $privateKeyId = openssl_get_privatekey($privateKey);
+        $privateKeyId = openssl_get_privatekey($privateKey, $passphrase);
         openssl_sign($message, $binarySignature, $privateKeyId, OPENSSL_ALGO_SHA512);
         openssl_free_key($privateKeyId);
 
         $signature = base64_encode($binarySignature);
 
         return [
-            'header' => $header,
-            'payload' => $payload,
+            'header'    => $header,
+            'payload'   => $payload,
             'signature' => $signature,
         ];
     }
@@ -132,44 +138,54 @@ class Signature
     }
 
     /**
-     * Generate 2048 bit RSA private and public keys
+     * Generate RSA private and public keys
      *
-     * @return array
+     * @param   int         $bits
+     * @param   array       $extraOptions
+     * @param   string|null $passphrase
+     *
+     * @return  array
      */
-    public static function generateKeyPair()
+    public static function generateKeyPair(int $bits = 1024, array $extraOptions = [], ?string $passphrase = null): array
     {
-        $key = openssl_pkey_new(array(
-            "private_key_bits" => 1024,
-            "private_key_type" => OPENSSL_KEYTYPE_RSA,
-        ));
+        $options = [
+            'private_key_bits' => $bits,
+            'private_key_type' => OPENSSL_KEYTYPE_RSA,
+        ];
+        $options = array_merge($options, $extraOptions);
+
+        $key = openssl_pkey_new($options);
 
         $details = openssl_pkey_get_details($key);
-        openssl_pkey_export($key, $privateKey);
+        openssl_pkey_export($key, $privateKey, $passphrase, $options);
 
         return [
-            'bits' => $details['bits'],
-            'type' => 'RSA-SHA1',
-            'public' => $details['key'],
-            'private' => $privateKey,
+            'bits'          => $details['bits'],
+            'type'          => 'RSA-SHA1',
+            'public'        => $details['key'],
+            'private'       => $privateKey,
+            'passphrase'    => $passphrase,
         ];
     }
 
     /**
      * Generate Certificate Signing Request
      *
-     * @param $privateKey
-     * @param array $subject
-     * @return array
+     * @param               $privateKey
+     * @param   array       $subject
+     * @param   string|null $passphrase
+     *
+     * @return  array
      */
-    public static function generateCSR($privateKey, array $subject = [])
+    public static function generateCSR($privateKey, array $subject = [], ?string $passphrase = null): array
     {
         $dn = [
-            'commonName' => 'Omnipay Raiffeisen',
-            'organizationName' => 'Omnipay Raiffeisen',
-            'organizationalUnitName' => 'Omnipay Raiffeisen',
-            'countryName' => 'BG',
-            'localityName' => 'BG',
-            'stateOrProvinceName' => 'BG',
+            'commonName'                => 'Omnipay Raiffeisen',
+            'organizationName'          => 'Omnipay Raiffeisen',
+            'organizationalUnitName'    => 'Omnipay Raiffeisen',
+            'countryName'               => 'BG',
+            'localityName'              => 'BG',
+            'stateOrProvinceName'       => 'BG',
         ];
 
         foreach ($subject as $key => $value) {
@@ -178,8 +194,8 @@ class Signature
             }
         }
 
-        $privkey = openssl_get_privatekey($privateKey);
-        $resource = openssl_csr_new($dn, $privkey, ['digest_alg' => self::ALGO]);
+        $privateKeyId = openssl_get_privatekey($privateKey, $passphrase);
+        $resource = openssl_csr_new($dn, $privateKeyId, ['digest_alg' => self::ALGO]);
 
         openssl_csr_export($resource, $csr);
 
@@ -194,15 +210,17 @@ class Signature
     /**
      * Sign Certificate Signing Request
      *
-     * @param $privateKey
-     * @param $csr
-     * @param int $days
-     * @param null $ca
+     * @param               $privateKey
+     * @param               $csr
+     * @param   int         $days
+     * @param   string|null $passphrase
+     * @param               $ca
+     *
      * @return array
      */
-    public static function signCSR($privateKey, $csr, int $days = 365, $ca = null)
+    public static function signCSR($privateKey, $csr, int $days = 365, ?string $passphrase = null, $ca = null): array
     {
-        $x509 = openssl_csr_sign($csr, $ca, $privateKey, $days, ['digest_alg' => self::ALGO]);
+        $x509 = openssl_csr_sign($csr, $ca, [$privateKey, $passphrase], $days, ['digest_alg' => self::ALGO]);
 
         openssl_x509_export($x509, $crt);
 

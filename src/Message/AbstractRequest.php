@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Omnipay\Raiffeisen\Message;
-
 
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Raiffeisen\Signature;
@@ -15,7 +13,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /**
      * @inheritDoc
      */
-    public function initialize(array $parameters = array())
+    public function initialize(array $parameters = [])
     {
         parent::initialize($parameters);
 
@@ -109,5 +107,4 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             throw new InvalidRequestException("Invalid gateway signature: " . $data['Signature']);
         }
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Omnipay\Raiffeisen;
 
-
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
@@ -20,7 +19,6 @@ use Omnipay\Raiffeisen\Message\PayByTokenRequest;
  */
 class Gateway extends AbstractGateway
 {
-
     public function getName()
     {
         return 'Raiffeisen';
@@ -94,7 +92,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return Message\PurchaseRequest|AbstractRequest
      */
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Raiffeisen\Message\PurchaseRequest', $parameters);
     }
@@ -103,7 +101,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return Message\CompletePurchaseRequest|AbstractRequest
      */
-    public function completePurchase(array $parameters = array())
+    public function completePurchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Raiffeisen\Message\CompletePurchaseRequest', $parameters);
     }
@@ -112,7 +110,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return Message\FetchTransactionRequest|AbstractRequest
      */
-    public function fetchTransaction(array $parameters = array())
+    public function fetchTransaction(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Raiffeisen\Message\FetchTransactionRequest', $parameters);
     }
@@ -121,7 +119,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return Message\RefundRequest|AbstractRequest
      */
-    public function refund(array $parameters = array())
+    public function refund(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Raiffeisen\Message\RefundRequest', $parameters);
     }
@@ -132,7 +130,7 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return NotifyRequest
      */
-    public function acceptNotification(array $parameters = array())
+    public function acceptNotification(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Raiffeisen\Message\NotifyRequest', $parameters);
     }
@@ -141,18 +139,18 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return PayByTokenRequest
      */
-    public function payByToken(array $parameters = array())
+    public function payByToken(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Raiffeisen\Message\PayByTokenRequest', $parameters);
     }
 
     public function __call($name, $arguments)
     {
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface capture(array $options = array())
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface void(array $options = array())
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface createCard(array $options = array())
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = [])
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface capture(array $options = [])
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface void(array $options = [])
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface createCard(array $options = [])
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = [])
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = [])
     }
 }

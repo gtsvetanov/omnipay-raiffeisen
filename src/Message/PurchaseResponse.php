@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Omnipay\Raiffeisen\Message;
-
 
 use Omnipay\Common\Message\RedirectResponseInterface;
 

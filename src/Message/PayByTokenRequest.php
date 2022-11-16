@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Omnipay\Raiffeisen\Message;
-
 
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Raiffeisen\Signature;
@@ -44,7 +42,7 @@ class PayByTokenRequest extends AbstractRequest
             'cvc',
         ]));
 
-        return Signature::createJWS($data, $this->getPrivateKey());
+        return Signature::createJWS($data, $this->getPrivateKey(), $this->getPrivateKeyPassphrase());
     }
 
     /**
