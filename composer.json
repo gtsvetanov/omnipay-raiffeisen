@@ -32,15 +32,22 @@
         "php": "^7.1 || ^8.0",
         "omnipay/common": "^3",
         "ext-openssl": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "symfony/http-client": "^6.3"
     },
     "require-dev": {
-        "omnipay/tests": "^3"
+        "omnipay/tests": "^4",
+        "http-interop/http-factory-guzzle": "^1.2"
     },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
         }
     },
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
 }
